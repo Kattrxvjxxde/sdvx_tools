@@ -4,4 +4,8 @@ Rails.application.routes.draw do
   scope module: :front do
     root to: 'top#index'
   end
+
+  namespace :admin do
+    root to: 'top#index'
+  end
 end
