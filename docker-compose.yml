@@ -1,0 +1,85 @@
+version: '3.3'
+
+services:
+  mysql:
+    image: mysql:5.7.12
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    environment:
+      LANG: C.UTF-8
+      MYSQL_ROOT_PASSWORD: &mysql_password mysql
+    volumes:
+      - mysql_volume:/var/lib/mysql
+    hostname: mysql
+
+  s3:
+    image: minio/minio:RELEASE.2020-11-19T23-48-16Z
+    command: minio server /export
+    ports:
+      - "${S3_PORT:-9000}:9000"
+    environment:
+      MINIO_ACCESS_KEY: &aws_access_key minio_access_key
+      MINIO_SECRET_KEY: &aws_secret minio_secret_key
+      S3_ENDPOINT: &s3_endpoint http://s3:9000
+      LANG: C.UTF-8
+    volumes:
+      - s3_config_volume:/root/.minio
+      - s3_data_volume:/export
+    hostname: s3
+
+  web: &app
+    build: .
+    command: >
+      bash -c "rm -f tmp/pids/server.pid &&
+               bundle exec rails s -p 3000 -b '0.0.0.0'"
+    ports:
+      - "${PORT:-3000}:3000"
+    environment: &app_env
+      USER_ID: &user_id ${USER_ID:-1000}
+      GROUP_ID: &group_id ${GROUP_ID:-1000}
+      MYSQL_ROOT_PASSWORD: *mysql_password
+      AWS_ACCESS_KEY_ID: *aws_access_key
+      AWS_SECRET_ACCESS_KEY: *aws_secret
+      S3_ENDPOINT: *s3_endpoint
+      AWS_REGION: ap-northeast-1
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/app
+      - ./docker-entrypoint.sh:/docker-entrypoint.sh
+      - bundle_volume:/usr/local/bundle
+      - node_volume:/app/node_modules
+      - tmp_cache_volume:/app/tmp/cache
+      - home_volume:/home/docker
+    depends_on:
+      - mysql
+      - s3
+      - webpacker
+    hostname: web
+    entrypoint: /docker-entrypoint.sh
+
+  webpacker:
+    <<: *app
+    command: ./bin/webpack-dev-server
+    environment:
+      <<: *app_env
+    ports:
+      - "${WEBPACK_PORT:-3035}:3035"
+    depends_on: []
+    hostname: webpack
+
+volumes:
+  mysql_volume:
+    driver: local
+  s3_config_volume:
+    driver: local
+  s3_data_volume:
+    driver: local
+  bundle_volume:
+    driver: local
+  node_volume:
+    driver: local
+  tmp_cache_volume:
+    driver: local
+  home_volume:
+    driver: local
