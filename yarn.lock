@@ -4036,6 +4036,11 @@ jest-worker@^26.5.0:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
+jquery@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
+  integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
+
 js-base64@^2.1.8:
   version "2.6.4"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.6.4.tgz#f4e686c5de1ea1f867dbcad3d46d969428df98c4"
@@ -7164,6 +7169,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+uikit@^3.6.19:
+  version "3.6.19"
+  resolved "https://registry.yarnpkg.com/uikit/-/uikit-3.6.19.tgz#ae39e191523b19a311ebc2f05b8b7334360e806e"
+  integrity sha512-Lw+1/3KNiYcZlWCVhva1/kN/GtjRzMt4vt8Cj73uZ66qDK7l68/ppFScArooPARnieVJG3CDbkq2UMV0YnXhnQ==
 
 unbox-primitive@^1.0.0:
   version "1.0.1"
