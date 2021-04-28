@@ -15,7 +15,8 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
   imagemagick \
   build-essential \
   libpq-dev \
-  default-libmysqlclient-dev
+  default-libmysqlclient-dev \
+  graphviz
 
 # minio client インストール
 COPY --from=mc /usr/bin/mc /usr/bin/mc
@@ -25,7 +26,3 @@ COPY --from=node /usr/local /usr/local
 COPY --from=node /opt /opt
 
 WORKDIR /app
-
-COPY Gemfile Gemfile.lock /app/
-
-RUN bundle install
