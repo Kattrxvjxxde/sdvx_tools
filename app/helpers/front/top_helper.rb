@@ -1,2 +1,4 @@
-module Front::TopHelper
+module Front
+  module TopHelper
+  end
 end

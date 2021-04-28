@@ -1,0 +1,76 @@
+require: rubocop-rails
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 25
+  Exclude:
+    - db/migrate/**/*
+
+Metrics/BlockLength:
+  Exclude:
+    - config/environments/**/*
+    - config/routes/*
+    - config/routes.rb
+    - config/application.rb
+    - db/migrate/*
+    - db/seeds/**/*
+    - lib/tasks/**/*.rake
+    - spec/**/*.rb
+  ExcludedMethods:
+    # concern のメソッドは無視
+    - included
+    - class_methods
+    # その他長くなりがちなメソッド
+    - with_options
+
+Metrics/ClassLength:
+  Max: 140
+
+Metrics/CyclomaticComplexity:
+  Max: 9
+
+Metrics/MethodLength:
+  Max: 25
+  Exclude:
+    - db/migrate/**/*
+
+Metrics/PerceivedComplexity:
+  Max: 9
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/BlockComments:
+  Exclude:
+    - spec/spec_helper.rb
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Rails:
+  Enabled: true
+
+Rails/Present:
+  Exclude:
+    - bin/bundle
+
+Rails/SkipsModelValidations:
+  Exclude:
+    - db/seeds/**/*
+    - spec/**/*
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.0
+  Exclude:
+    - bin/*
+    - coverage/**/*
+    - db/schema.rb
+    - node_modules/**/*
+    - tmp/**/*
+    - vendor/bundle/**/*

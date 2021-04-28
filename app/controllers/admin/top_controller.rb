@@ -1,4 +1,5 @@
-class Admin::TopController < Admin::BaseController
-  def index
+module Admin
+  class TopController < Admin::BaseController
+    def index; end
   end
 end

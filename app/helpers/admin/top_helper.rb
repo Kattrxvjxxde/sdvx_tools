@@ -1,2 +1,4 @@
-module Admin::TopHelper
+module Admin
+  module TopHelper
+  end
 end

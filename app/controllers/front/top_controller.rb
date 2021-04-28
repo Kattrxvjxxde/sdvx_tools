@@ -1,4 +1,5 @@
-class Front::TopController < Front::BaseController
-  def index
+module Front
+  class TopController < Front::BaseController
+    def index; end
   end
 end

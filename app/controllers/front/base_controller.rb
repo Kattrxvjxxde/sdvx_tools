@@ -1,9 +1,11 @@
-class Front::BaseController < ApplicationController
-  before_action :basic_auth
+module Front
+  class BaseController < ApplicationController
+    before_action :basic_auth
 
-  def basic_auth
-    authenticate_or_request_with_http_basic do |username, password|
-      username == 'wanirou' && password == 'wanirou'
+    def basic_auth
+      authenticate_or_request_with_http_basic do |username, password|
+        username == 'wanirou' && password == 'wanirou'
+      end
     end
   end
 end
