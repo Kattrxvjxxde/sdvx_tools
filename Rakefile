@@ -7,17 +7,15 @@ Rails.application.load_tasks
 
 # migrateのタスクをフックする
 Rake::Task['db:migrate'].enhance do
-  if Rails.env.development?
-    Rake::Task[:after_migrate].invoke
-  end
+  Rake::Task[:after_migrate].invoke if Rails.env.development?
 end
 
 # migrateの後のタスク
-task :after_migrate do
+task after_migrate: :environment do
   Rake::Task[:create_erd].invoke
 end
 
 # ER図を作成
-task :create_erd do
+task create_erd: :environment do
   sh 'bin/rake erd sort=false title=sdvx_tools filename=db/erd filetype=png'
 end

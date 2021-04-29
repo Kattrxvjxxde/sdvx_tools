@@ -39,6 +39,9 @@ Metrics/MethodLength:
 Metrics/PerceivedComplexity:
   Max: 9
 
+Naming/MethodParameterName:
+  Enabled: false
+
 Style/AsciiComments:
   Enabled: false
 
