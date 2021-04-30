@@ -1,8 +1,8 @@
 module Mutations
   class CreateMstMusic < Mutations::BaseMutation
     argument :title, String, required: true
-    argument :composer, String, required: false
-    argument :music_genres, String, required: false
+    argument :composer, String, required: true
+    argument :music_genres, String, required: true
 
     field :status, String, null: false # 更新ステータス
     field :mst_music, Types::MstMusicType, null: false
@@ -11,14 +11,22 @@ module Mutations
     def resolve(**args)
       # 楽曲名から MstMusic を 新規作成 or 取得
       mst_music = MstMusic.find_or_initialize_by(title: args[:title])
-      # 新規作成 or 更新 判定
-      status = mst_music.persisted? ? :update : :create
-      # 作曲者登録
-      mst_music.composer = args[:composer]
-      # MstMusic 保存
-      mst_music.save
-      # 楽曲ジャンル登録
-      resister_music_genres(mst_music, args[:music_genres])
+
+      if mst_music.persisted?
+        # DB登録済みの場合は保存処理をスキップ
+        status = :persisted
+      else
+        # そうでない場合は保存処理を行う
+        status = :create
+        # 作曲者登録
+        mst_music.composer = args[:composer]
+
+        # MstMusic 保存
+        mst_music.save
+
+        # 楽曲ジャンル登録
+        resister_music_genres(mst_music, args[:music_genres])
+      end
 
       # 返り値
       {

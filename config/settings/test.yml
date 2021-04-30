@@ -1,0 +1,8 @@
+aws:
+  s3:
+    carrierwave:
+      bucket: contents-test
+      asset_host: <%= "http://#{ENV['DEV_HOST']}:9000/contents-test" %>
+      credentials:
+        force_path_style: true
+        endpoint: <%= ENV['S3_ENDPOINT'] %>

@@ -1,0 +1,6 @@
+aws:
+  s3:
+    carrierwave:
+      bucket: contents
+      asset_host: <%= ENV['CARRIERWAVE_ASSET_HOST'] %>
+      credentials: []
