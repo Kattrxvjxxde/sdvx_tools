@@ -7,6 +7,7 @@ module Mutations
     field :status, String, null: false # 更新ステータス
     field :mst_music, Types::MstMusicType, null: false
     field :music_genres, [Types::MstMusicGenreType], null: true
+    field :chart_size, Int, null: true # 紐づく譜面レコードの数
 
     def resolve(**args)
       # 楽曲名から MstMusic を 新規作成 or 取得
@@ -18,6 +19,7 @@ module Mutations
       else
         # そうでない場合は保存処理を行う
         status = :create
+
         # 作曲者登録
         mst_music.composer = args[:composer]
 
@@ -32,7 +34,8 @@ module Mutations
       {
         status: status,
         mst_music: mst_music,
-        music_genres: mst_music.mst_music_genres
+        music_genres: mst_music.mst_music_genres,
+        chart_size: mst_music.mst_charts.size
       }
     end
 
