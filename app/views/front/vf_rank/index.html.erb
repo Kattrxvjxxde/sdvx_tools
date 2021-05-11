@@ -1,0 +1,28 @@
+<div class="uk-section uk-section-small">
+  <div class="uk-container uk-container-xsmall">
+    <h1 class="uk-heading-line uk-text-center"><span>VOLFORCE Ranking</span></h1>
+
+    <div class="uk-section uk-section-xsmall">
+      <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover">
+        <thead>
+          <tr>
+            <th class="uk-table-shrink uk-text-center">RANK</th>
+            <th class="uk-width-small uk-text-center">PLAYER NAME</th>
+            <th class="uk-table-shrink uk-text-center">VOLFORCE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tbl_players.each do |tbl_player| %>
+            <tr class="uk-text-center">
+              <td><%= tbl_player.volforce_rank %></td>
+              <td><%= tbl_player.name %></td>
+              <td><%= sprintf("%#.05g", (tbl_player.volforce / 1000.0)) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <%= paginate @tbl_players, window: @window_size %>
+  </div>
+</div>

@@ -35,6 +35,10 @@ gem 'graphql', '~> 1.12.8'
 gem 'carrierwave', '~> 2.2.1'
 gem 'carrierwave-aws', '~> 1.5.0'
 
+gem 'kaminari', '~> 1.2.1'
+
+gem 'browser', '~> 5.3.1'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   scope module: :front do
     root to: 'top#index'
+
+    get :vf_rank, to: 'vf_rank#index'
   end
 
   namespace :admin do
